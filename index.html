@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이화반 분실물🌺</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            margin: 20px; 
+            background-color: #fcf0ed; /* 아주 연한 핑크색 */
+        }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: center; }
+        th { background-color: #fcf0ed; }
+        input, button { padding: 8px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>이화반 분실물 목록 🌺</h1>
+
+    <label for="item">분실물 이름:</label>
+    <input type="text" id="item" placeholder="분실물 입력">
+    <label for="location">습득 장소:</label>
+    <input type="text" id="location" placeholder="습득 장소 입력">
+    <button onclick="addItem()">추가</button>
+
+    <table id="lostItems">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>분실물</th>
+                <th>습득 장소</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        let count = 0;
+
+        function addItem() {
+            const itemInput = document.getElementById('item');
+            const locationInput = document.getElementById('location');
+            const item = itemInput.value.trim();
+            const location = locationInput.value.trim();
+
+            if (item === '' || location === '') {
+                alert('모든 항목을 입력하세요.');
+                return;
+            }
+
+            count++;
+
+            const tableBody = document.querySelector('#lostItems tbody');
+            const newRow = document.createElement('tr');
+
+            newRow.innerHTML = 
+                `<td>${count}</td>
+                <td>${item}</td>
+                <td>${location}</td>
+                <td><button onclick="deleteItem(this)">삭제</button></td>`;
+
+            tableBody.appendChild(newRow);
+
+            itemInput.value = '';
+            locationInput.value = '';
+        }
+
+        function deleteItem(button) {
+            const row = button.parentElement.parentElement;
+            row.remove();
+        }
+    </script>
+</body>
+</html>
